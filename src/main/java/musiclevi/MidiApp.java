@@ -13,8 +13,10 @@ public class MidiApp {
         }
     }
 
+    /*
     public static void runWithComp(Comp c) 
-        throws InvalidMidiDataException, InterruptedException {
+        throws InvalidMidiDataException, InterruptedException 
+    {
         MyMidiNote[] notes = c.toMidi2(0);
         List<MyMidiNote> notesL = Arrays.asList(notes);
         Collections.sort(notesL);
@@ -54,12 +56,17 @@ public class MidiApp {
             System.out.println("midi unavailable xception");
         }
     }
+    */
 
-    public static void runTest() throws Exception {
+    public static void runTest() throws Exception 
+    {
+        Map<String, String> env = System.getenv();
+        String midiInput = env.get("MMIDI");
+
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
         MidiDevice.Info theOne = null;
         for (MidiDevice.Info i: infos) {
-            if(i.getName().equals("Springbeats vMIDI1")) {
+            if(i.getName().equals(midiInput)) {
                 theOne = i;
             }
         }
