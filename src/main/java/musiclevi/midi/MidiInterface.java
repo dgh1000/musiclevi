@@ -1,9 +1,9 @@
 
-package ptcs.midi;
+package musiclevi.midi;
 
 import java.util.*;
 import javax.sound.midi.*;
-import ptcs.core.*;
+import musiclevi.core.*;
 
 public class MidiInterface {
     static MidiDevice midiDevice;
