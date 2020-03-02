@@ -36,11 +36,11 @@ public class MidiInterface {
         midiDevice.close();
     }
 
-    static public void playNotes(List<Note> notes, List<MyMidiNote> other, long offset) {
-        List<MyMidiNote> notesL = new ArrayList<>();
+    static public void playNotes(List<Note> notes, List<Raw> other, int offset) {
+        List<Raw> notesL = new ArrayList<>();
 
         for (Note n : notes) {
-            MyMidiNote[] mns = n.toMyMidiNotes(offset);
+            Raw[] mns = n.toRaws(offset);
             notesL.add(mns[0]);
             notesL.add(mns[1]);
         }
@@ -49,14 +49,14 @@ public class MidiInterface {
 
         try {
             Receiver r = midiDevice.getReceiver();
-            long currentT = 0;
-            for (MyMidiNote n : notesL) {
+            int currentT = 0;
+            for (Raw n : notesL) {
                 // what does -1 mean in send? send now?
                 // why are we sending now? why are we only creating
                 // 1 message? where is sending whole comp? Have
                 // we tested that yet?
-                long t = n.timestamp;
-                int ms = (int) ((double) (t - currentT) / 1000.0);
+                int t = n.timestamp;
+                int ms = t - currentT;
                 if (ms <= 0) {
                     r.send(n.msg, -1);
                 } else {
